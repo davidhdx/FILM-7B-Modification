@@ -92,4 +92,5 @@ if __name__ == '__main__':
               model_path=args.model_path,
               max_length=args.max_length,
               tensor_parallel_size=args.tensor_parallel_size,
-            batch_size=args.batch_size)
+              trust_remote_code = args.trust_remote_code,
+              batch_size=args.batch_size)
