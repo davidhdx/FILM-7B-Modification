@@ -9,7 +9,7 @@ import argparse
 import torch
 
 
-def inference(testdata_folder, testdata_file, output_folder, output_file, model_path, tensor_parallel_size, max_length, trust_remote_code, batch_size=128):
+def inference(testdata_folder, testdata_file, output_folder, output_file, model_path, tensor_parallel_size, max_length, trust_remote_code, batch_size=128, gpu_memory_utilization=0.9):
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ def inference(testdata_folder, testdata_file, output_folder, output_file, model_
               tensor_parallel_size=tensor_parallel_size,
               trust_remote_code=trust_remote_code,
               max_num_batched_tokens=800000,
-              gpu_memory_utilization=0.9)
+              gpu_memory_utilization=gpu_memory_utilization)
 
     sampling_params = SamplingParams(temperature=0.0, top_p=1.0, max_tokens=max_length)
 
@@ -70,6 +70,7 @@ if __name__ == '__main__':
     parser.add_argument('--max_length', type=int, default=128, required=False)
     parser.add_argument('--batch_size', type=int, default=128, required=False)
     parser.add_argument('--tensor_parallel_size', type=int, default=8, required=False)
+    parser.add_argument('--gpu_memory_utilization', type=float, default=0.9, required=False)
     parser.add_argument('--trust_remote_code', type=bool, default=True, required=False)
     args = parser.parse_args()
 
@@ -93,4 +94,5 @@ if __name__ == '__main__':
               max_length=args.max_length,
               tensor_parallel_size=args.tensor_parallel_size,
               trust_remote_code = args.trust_remote_code,
-              batch_size=args.batch_size)
+              batch_size = args.batch_size,
+              gpu_memory_utilization = args.gpu_memory_utilization)
