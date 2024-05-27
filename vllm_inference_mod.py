@@ -45,13 +45,11 @@ def inference(testdata_folder, testdata_file, output_folder, output_file, model_
             prompt_batch = test_prompts[batch_idx * batch_size:]
         else:
             prompt_batch = test_prompts[batch_idx*batch_size:(batch_idx+1)*batch_size]
-
-        with torch.no_grad():  # Desactivar gradientes para ahorrar memoria
-            results = llm.generate(prompt_batch, sampling_params)
         
         # Liberar memoria no utilizada
         torch.cuda.empty_cache()
-        results = llm.generate(prompt_batch, sampling_params)
+        with torch.no_grad():  # Desactivar gradientes para ahorrar memoria
+            results = llm.generate(prompt_batch, sampling_params)
         current_lines += batch_size
         logger.info(f"{current_lines} in {total_lines} examples.")
         for result in results:
