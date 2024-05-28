@@ -109,11 +109,11 @@ for model_name, color_str, ecolor_str, linestyle in model_infos:
                  color=color_str, linewidth=3, marker='o', markersize=10, linestyle=linestyle,
                  ecolor=ecolor_str, elinewidth=3, capsize=6, label=legend_label)
 
-    print(model_name, 'Statistics:')
+    # print(model_name, 'Statistics:')
     long_acc = sum(span_acc_list) / len(span_acc_list)
-    print('long avg:', long_acc)
-    print('max-min gap:', max(span_acc_list) - min(span_acc_list))
-    print('\n')
+    # print('long avg:', long_acc)
+    # print('max-min gap:', max(span_acc_list) - min(span_acc_list))
+    # print('\n')
 
 
 x = [i for i in range(span_num)]
