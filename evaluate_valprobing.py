@@ -8,8 +8,12 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
 import numpy as np
-
+import argparse
 from tqdm import tqdm
+
+parser = argparse.ArgumentParser(description='args for evaluate val_probing')
+parser.add_argument('--output_folder', type=str, required=True)
+args = parser.parse_args()
 
 
 model_infos = [
@@ -357,7 +361,7 @@ ax3.set_title('Database Entity Retrieval (Forward)', fontsize=fontsize*1.5)
 
 plt.gcf().subplots_adjust(left=0.05, right=0.97, bottom=0.1, top=0.95)
 plt.show()
-pp = PdfPages('/content/FILM/VaLProbing/figures/probing_fig.pdf')
+pp = PdfPages(os.path.join(args.output_folder, "evaluation.pdf")
 pp.savefig(fig)
 pp.close()
 
